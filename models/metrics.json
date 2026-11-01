@@ -1,0 +1,37 @@
+{
+  "selected": "logistic_regression",
+  "cv_scores": {
+    "logistic_regression": {
+      "pr_auc": 0.29036144354829385,
+      "roc_auc": 0.7345486111111111,
+      "recall": 0.6,
+      "precision": 0.0972132365848008
+    },
+    "random_forest": {
+      "pr_auc": 0.2020280683203543,
+      "roc_auc": 0.7239583333333335,
+      "recall": 0.0,
+      "precision": 0.0
+    },
+    "gradient_boosting": {
+      "pr_auc": 0.16789845810170714,
+      "roc_auc": 0.6905381944444444,
+      "recall": 0.05,
+      "precision": 0.1
+    }
+  },
+  "holdout": {
+    "roc_auc": 0.9266666666666666,
+    "pr_auc": 0.5331908831908831
+  },
+  "alert_threshold": 0.3865416097610041,
+  "importance": {
+    "tool_wear_min": 0.15019891145372688,
+    "production_speed_units_hr": 0.14983762854885146,
+    "rotational_speed_rpm": 0.11947706794924078,
+    "temperature_C": 0.10884342034700407,
+    "vibration_mm_s": 0.08684983471260688,
+    "machine_id": 0.04427070571398287,
+    "pressure_bar": 0.00912760024117738
+  }
+}

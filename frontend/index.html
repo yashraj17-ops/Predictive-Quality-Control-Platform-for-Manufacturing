@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Predictive Quality Control</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header><h1>Predictive Quality Control</h1><span id="model" class="muted"></span></header>
+<nav>
+  <button class="tab active" data-tab="live">Live Check</button>
+  <button class="tab" data-tab="batch">Batch Monitor</button>
+  <button class="tab" data-tab="alerts">Alerts <span id="badge" class="badge hidden">0</span></button>
+</nav>
+
+<main>
+<section id="live" class="panel">
+  <div class="card">
+    <label>Machine <select id="machine"></select></label>
+    <div id="sliders"></div>
+  </div>
+  <div class="card result">
+    <div class="gauge-wrap">
+      <div id="prob" class="prob">–</div>
+      <div id="level" class="level">–</div>
+    </div>
+    <h3>Recommended actions</h3>
+    <ul id="actions"></ul>
+    <h3>Key causes <span class="muted">(risk removed if reset to normal)</span></h3>
+    <div id="causes"></div>
+  </div>
+</section>
+
+<section id="batch" class="panel hidden">
+  <div class="card wide">
+    <input type="file" id="file" accept=".csv">
+    <button id="sample">Use sample data</button>
+    <div id="summary" class="summary"></div>
+    <div class="scroll"><table id="table"></table></div>
+  </div>
+</section>
+
+<section id="alerts" class="panel hidden">
+  <div class="card wide"><div id="alertlist"></div></div>
+</section>
+</main>
+<script src="/static/app.js"></script>
+</body>
+</html>
