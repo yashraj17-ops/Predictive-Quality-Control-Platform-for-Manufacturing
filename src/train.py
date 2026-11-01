@@ -9,7 +9,6 @@ import json
 import joblib
 import warnings
 
-import matplotlib
 import numpy as np
 from sklearn.compose import ColumnTransformer
 from sklearn.ensemble import GradientBoostingClassifier, RandomForestClassifier
@@ -26,8 +25,6 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from .data import (CATEGORICAL, FEATURES, NUMERIC, TARGET, load)
 
 warnings.filterwarnings("ignore")
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt  # noqa: E402
 
 SEED = 42
 
@@ -106,6 +103,10 @@ def main():
                    "alert_threshold": threshold, "importance": importance}, f, indent=2)
 
     # 4. Plots
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
     fig, ax = plt.subplots(1, 2, figsize=(11, 4))
     ax[0].plot(rec, prec); ax[0].set(title="Precision-Recall (out-of-fold)",
                                      xlabel="Recall", ylabel="Precision")

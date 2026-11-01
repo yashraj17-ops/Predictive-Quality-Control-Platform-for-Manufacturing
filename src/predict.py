@@ -1,4 +1,6 @@
 """Inference + per-reading root-cause attribution (counterfactual, model-based)."""
+import json
+
 import joblib
 import pandas as pd
 
@@ -7,10 +9,30 @@ from .data import FEATURES, NUMERIC, UNITS
 _bundle = None
 
 
+def _rebuild():
+    """Refit the selected model from the CSV (used if the pickle can't be loaded,
+    e.g. scikit-learn version mismatch on the deployment platform)."""
+    from .data import TARGET, load
+    from .train import CANDIDATES, make_pipe
+    with open("models/metrics.json") as f:
+        m = json.load(f)
+    df = load()
+    model = make_pipe(CANDIDATES[m["selected"]]).fit(df[FEATURES], df[TARGET])
+    good = df[df[TARGET] == 0]
+    return {"model": model, "threshold": m["alert_threshold"],
+            "nominal": {c: float(good[c].median()) for c in NUMERIC},
+            "spread": {c: float(good[c].std()) for c in NUMERIC},
+            "importance": m["importance"],
+            "machines": sorted(df["machine_id"].unique().tolist())}
+
+
 def bundle():
     global _bundle
     if _bundle is None:
-        _bundle = joblib.load("models/defect_model.joblib")
+        try:
+            _bundle = joblib.load("models/defect_model.joblib")
+        except Exception:
+            _bundle = _rebuild()
     return _bundle
 
 

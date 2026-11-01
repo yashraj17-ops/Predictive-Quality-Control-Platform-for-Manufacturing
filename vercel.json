@@ -1,0 +1,8 @@
+{
+  "functions": {
+    "main.py": {
+      "includeFiles": "{frontend/**,models/**,src/**,small_custom_manufacturing_dataset_500.csv}",
+      "maxDuration": 30
+    }
+  }
+}
